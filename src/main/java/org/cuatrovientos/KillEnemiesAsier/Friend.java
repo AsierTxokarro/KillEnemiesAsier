@@ -7,5 +7,8 @@ public class Friend implements Character{
 		// TODO Auto-generated method stub
 		return false;
 	}
+	public void heal() {
+		System.out.println("¡Te he curado!");
+	}
 
 }
