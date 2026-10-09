@@ -12,17 +12,7 @@ public class Main {
 		AnadirEnemies();
 		Collections.shuffle(caracters);
 		int contador = 0;
-		for(Character c: caracters) {
-			if(c.isEnemy()) {
-				System.out.println("El personaje " + contador + " es un enemigo! ¡Mátalo!");
-				Enemy enemy = (Enemy) c;
-				System.out.println(enemy.kill()); 
-			}else {
-				System.out.println("El cáracter "+ contador + " es un amigo");
-			}
-			
-			contador ++;
-		}
+		showCharacters();
 		countCharacters();
 	}
 public static void AnadirFriends() {
@@ -67,5 +57,14 @@ public static void AnadirFriends() {
 			}
 		}
 		System.out.println("Nº Enemigos: "+ enemigos + " Nº Amigos: "+ amigos);
+	}
+	public static void showCharacters() {
+		for(int i = 0; i <= caracters.size(); i++) {
+			if(caracters.get(i).isEnemy()) {
+				System.out.println("El caracter "+ i + "es enemigo");
+			}else {
+				System.out.println("El caracter "+ i + " es amigo");
+			}
+		}
 	}
 }
