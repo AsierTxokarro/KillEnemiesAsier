@@ -3,9 +3,6 @@ package org.cuatrovientos.KillEnemiesAsier;
 import java.util.ArrayList;
 import java.util.Collections;
 
-
-
-
 public class Main {
 
 	static ArrayList<Character> caracters = new ArrayList<>();
@@ -26,6 +23,7 @@ public class Main {
 			
 			contador ++;
 		}
+		countCharacters();
 	}
 public static void AnadirFriends() {
 		
@@ -57,5 +55,17 @@ public static void AnadirFriends() {
 		caracters.add(e4);
 		caracters.add(e5);
 		
+	}
+	public static void countCharacters() {
+		int amigos = 0;
+		int enemigos = 0;
+		for(Character c: caracters) {
+			if(c.isEnemy()) {
+				enemigos ++;
+			}else {
+				amigos ++;
+			}
+		}
+		System.out.println("Nº Enemigos: "+ enemigos + " Nº Amigos: "+ amigos);
 	}
 }
