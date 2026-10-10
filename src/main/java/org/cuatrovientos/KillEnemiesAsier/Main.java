@@ -11,71 +11,90 @@ public class Main {
 		// TODO Auto-generated method stub
 		Scanner scanner = new Scanner(System.in);
 		String leer;
+		boolean seguirJugando = true;
 		AnadirFriends();
 		AnadirEnemies();
 		Collections.shuffle(caracters);
-		int contador = 0;
-		showCharacters();
-		boolean HayEnemigos = false;
-		for(Character c: caracters) {
-			if(c.isEnemy()) {
-				HayEnemigos = true;
+		while(seguirJugando) {
+			int contador = 0;
+			showCharacters();
+			boolean HayEnemigos = false;
+			for(Character c: caracters) {
+				if(c.isEnemy()) {
+					HayEnemigos = true;
+				}
 			}
-		}
-		if(HayEnemigos) {
-			System.out.println("Hay enemigos, puedes matarlos");
-		}else {
-			System.out.println("No hay enemigos, puedes si quieres sanar a tus amigos");
-		}
-		boolean opcionCorrecta = false;
-		String opcionElegida = "";
-		while(!opcionCorrecta) {
-			
-			System.out.println("¿Que quiere hacer el heroe? (Kill(K) o Heal(H))");
-			leer = scanner.nextLine();
-			if(comprobarSiLaOpcionElegidaEsCorrecta(leer) == false) {
-				opcionCorrecta = false;
-			}else{
-				opcionElegida = leer;
-			};
-		}
-		int indicePersonaje = 0;
-		boolean indiceCorrecto = false;
-		while(!indiceCorrecto){
-			System.out.println("Ahora elige el personaje en base a su indice");
-			leer = scanner.nextLine();
-			if(comprobarindiceCorrecto(leer) == false) {
-				indiceCorrecto = false;
+			if(HayEnemigos) {
+				System.out.println("Hay enemigos, puedes matarlos");
 			}else {
-				indiceCorrecto = true;
+				System.out.println("No hay enemigos, puedes si quieres sanar a tus amigos");
+			}
+			boolean opcionCorrecta = false;
+			String opcionElegida = "";
+			while(!opcionCorrecta) {
+				
+				System.out.println("¿Que quiere hacer el heroe? (Kill(K) o Heal(H))");
+				leer = scanner.nextLine();
+				if(comprobarSiLaOpcionElegidaEsCorrecta(leer) == false) {
+					opcionCorrecta = false;
+				}else{
+					opcionCorrecta = true;
+					opcionElegida = leer;
+				};
+			}
+			int indicePersonaje = 0;
+			boolean indiceCorrecto = false;
+			while(!indiceCorrecto){
+				System.out.println("Ahora elige el personaje en base a su indice");
+				leer = scanner.nextLine();
+				if(comprobarindiceCorrecto(leer) == false) {
+					System.out.println("Debes introducir un número entero");
+					indiceCorrecto = false;
+				}else {
+					indicePersonaje = Integer.parseInt(leer);
+					indiceCorrecto = true;
+				}
+				
+			}
+			Hero h1 = new Hero();
+			Character c = caracters.get(indicePersonaje);
+			if(opcionElegida.equalsIgnoreCase("K")) {
+				if(c.isEnemy()) {
+					Enemy enemy = (Enemy) c;
+					h1.attack(enemy);
+					System.out.println("Enemigo eliminado");
+				}else {
+					System.out.println("¡Como has podido matar a un amigo, Traidor!");
+					
+				}
+				caracters.remove(indicePersonaje);
+				
+			}else {
+				if(c.isEnemy()) {
+					System.out.println("Como osas curar a un enemigo, ahora se multiplicara");
+					Enemy e = new Enemy();
+					caracters.add(e);
+				}else {
+					Friend friend = (Friend) c;
+					friend.heal();
+					
+				}
 			}
 			
-		}
-		Hero h1 = new Hero();
-		Character c = caracters.get(indicePersonaje);
-		if(opcionElegida.equalsIgnoreCase("K")) {
-			if(c.isEnemy()) {
-				Enemy enemy = (Enemy) c;
-				h1.attack(enemy);
-				System.out.println("Enemigo eliminado");
-			}else {
-				System.out.println("¡Como has podido matar a un amigo, Traidor!");
+			showCharacters();
+			countCharacters();
+				System.out.println("¿Deseas continuar? (S/N)");
+				leer = scanner.nextLine();
+				if(!leer.equalsIgnoreCase("s")) {
+					seguirJugando = false;
+				}else {
+					System.out.println("El programa finalizara");
+				}
 				
-			}
-			caracters.remove(indicePersonaje);
-			
-		}else {
-			if(c.isEnemy()) {
-				System.out.println("Como osas curar a un enemigo, ahora se multiplicara");
-				
-			}else {
-				
-				
-			}
 		}
 		
 		
-			
+		
 		
 		
 	}
