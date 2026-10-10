@@ -1,5 +1,11 @@
 package org.cuatrovientos.KillEnemiesAsier;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
@@ -12,9 +18,16 @@ public class Main {
 		Scanner scanner = new Scanner(System.in);
 		String leer;
 		boolean seguirJugando = true;
-		AnadirFriends();
-		AnadirEnemies();
-		Collections.shuffle(caracters);
+		
+		boolean partidaCargada = cargarPartida();
+		if(!partidaCargada) {
+			
+			AnadirFriends();
+			AnadirEnemies();
+			Collections.shuffle(caracters);
+			guardarPartida();
+		}
+		
 		while(seguirJugando) {
 			int contador = 0;
 			showCharacters();
@@ -58,7 +71,7 @@ public class Main {
 			}
 			//Método para que el heroe mate o cure a un amigo o enemigo
 			DecisionHeroe(opcionElegida,indicePersonaje);
-			
+			guardarPartida();
 			showCharacters();
 			countCharacters();
 				System.out.println("¿Deseas continuar? (S/N)");
@@ -169,4 +182,47 @@ public static void AnadirFriends() {
 			}
 		}
 	}
+	
+	//Método encargado de guardar el estado actual de la partida en un archivo
+	public static void guardarPartida() {
+		//ObjectOutputStream permite guardar objetos en el
+	    try (ObjectOutputStream salida = new ObjectOutputStream(
+	    		
+	    		//FileOutputStream abre el archivo
+	            new FileOutputStream("partida.dat"))) {
+
+	        salida.writeObject(caracters);
+	        System.out.println("Partida guardada correctamente.");
+
+	    } catch (IOException e) {
+	        System.out.println("Error al guardar la partida.");
+	        //Muestra en la consola información detallada sobre un error ocurrido en el programa
+	        e.printStackTrace();
+	    }
+	}
+	
+	//Método para cargar la partida
+	@SuppressWarnings("unchecked")  // Evita el aviso del compilador por una conversión de tipo no comprobada.
+	public static boolean cargarPartida() {
+	    File archivo = new File("partida.dat");
+
+	    if (!archivo.exists()) {
+	        return false;
+	    }
+	    // si existe la partida lee el objeto guardado y lo convierte de nuevo en ArrayList<Character>
+	    try (ObjectInputStream entrada = new ObjectInputStream(
+	            new FileInputStream(archivo))) {
+
+	        caracters = (ArrayList<Character>) entrada.readObject();
+	        System.out.println("Partida cargada correctamente.");
+	        return true;
+
+	    } catch (IOException | ClassNotFoundException e) {
+	        System.out.println("No se pudo cargar la partida.");
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	
 }
