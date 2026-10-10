@@ -56,30 +56,8 @@ public class Main {
 				}
 				
 			}
-			Hero h1 = new Hero();
-			Character c = caracters.get(indicePersonaje);
-			if(opcionElegida.equalsIgnoreCase("K")) {
-				if(c.isEnemy()) {
-					Enemy enemy = (Enemy) c;
-					h1.attack(enemy);
-					System.out.println("Enemigo eliminado");
-				}else {
-					System.out.println("¡Como has podido matar a un amigo, Traidor!");
-					
-				}
-				caracters.remove(indicePersonaje);
-				
-			}else {
-				if(c.isEnemy()) {
-					System.out.println("Como osas curar a un enemigo, ahora se multiplicara");
-					Enemy e = new Enemy();
-					caracters.add(e);
-				}else {
-					Friend friend = (Friend) c;
-					friend.heal();
-					
-				}
-			}
+			//Método para que el heroe mate o cure a un amigo o enemigo
+			DecisionHeroe(opcionElegida,indicePersonaje);
 			
 			showCharacters();
 			countCharacters();
@@ -92,10 +70,6 @@ public class Main {
 				}
 				
 		}
-		
-		
-		
-		
 		
 	}
 public static void AnadirFriends() {
@@ -168,5 +142,31 @@ public static void AnadirFriends() {
 			return false;
 		}
 		return true;
+	}
+	public static void DecisionHeroe(String opcion, int indice) {
+		Hero h1 = new Hero();
+		Character c = caracters.get(indice);
+		if(opcion.equalsIgnoreCase("K")) {
+			if(c.isEnemy()) {
+				Enemy enemy = (Enemy) c;
+				h1.attack(enemy);
+				System.out.println("Enemigo eliminado");
+			}else {
+				System.out.println("¡Como has podido matar a un amigo, Traidor!");
+				
+			}
+			caracters.remove(indice);
+			
+		}else {
+			if(c.isEnemy()) {
+				System.out.println("Como osas curar a un enemigo, ahora se multiplicara");
+				Enemy e = new Enemy();
+				caracters.add(e);
+			}else {
+				Friend friend = (Friend) c;
+				friend.heal();
+				
+			}
+		}
 	}
 }
