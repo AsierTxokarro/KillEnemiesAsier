@@ -79,7 +79,7 @@ public class Main {
 				if(!leer.equalsIgnoreCase("s")) {
 					seguirJugando = false;
 				}else {
-					System.out.println("El programa finalizara");
+					System.out.println("continuamos");
 				}
 				
 		}

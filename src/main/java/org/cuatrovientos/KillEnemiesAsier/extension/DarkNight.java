@@ -5,6 +5,11 @@ import org.cuatrovientos.KillEnemiesAsier.Enemy;
 public class DarkNight extends Enemy implements Damageable{
 int life;
 
+public DarkNight(int life) {
+	this.life = life;
+	// TODO Auto-generated constructor stub
+}
+
 @Override
 public void receiveDamage(int damage) {
 	// TODO Auto-generated method stub
@@ -18,13 +23,19 @@ public int getLife() {
 }
 
 @Override
-public boolean isAlife() {
+public boolean isAlive() {
 	// TODO Auto-generated method stub
 	if(this.life > 0) {
 		return true;
 	}else {
 		return false;
 	}
+}
+
+@Override
+public boolean isSH() {
+	// TODO Auto-generated method stub
+	return false;
 }
 
 }

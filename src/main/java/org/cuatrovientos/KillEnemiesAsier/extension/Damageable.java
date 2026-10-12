@@ -6,8 +6,8 @@ public interface Damageable {
 	
 	int getLife();
 	
-	boolean isAlife();
+	boolean isAlive();
 	
-	
+	boolean isSH();
 	
 }

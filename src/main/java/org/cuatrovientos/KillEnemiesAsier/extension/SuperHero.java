@@ -27,13 +27,18 @@ public class SuperHero extends Hero implements Damageable{
 	}
 
 	@Override
-	public boolean isAlife() {
+	public boolean isAlive() {
 		// TODO Auto-generated method stub
 		if(this.life > 0) {
 			return true;
 		}else {
 			return false;
 		}
+	}
+	@Override
+	public boolean isSH() {
+		// TODO Auto-generated method stub
+		return true;
 	}
 	
 }
