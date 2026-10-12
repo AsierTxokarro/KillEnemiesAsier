@@ -4,8 +4,8 @@ package org.cuatrovientos.KillEnemiesAsier;
 public class Hero implements Character{
 	
 	//atributos para contar los enemigos matados y los amigos defendidos
-	int killed = 0;
-	int defended = 0;
+	protected int killed = 0;
+	protected int defended = 0;
 	
 	@Override
 	public boolean isEnemy() {
